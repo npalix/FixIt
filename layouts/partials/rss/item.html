@@ -1,10 +1,13 @@
 {{- $params := .Page.Params | merge .Site.Params.Page -}}
 {{- $authorName := .Site.Params.author.name | default (T "single.author") -}}
+{{- $authorEmail := .Site.Params.author.email -}}
 {{- with .Params.author -}}
   {{- if reflect.IsMap . -}}
     {{- $authorName = cond (isset . "name") .name $authorName -}}
+    {{- $authorEmail = cond (isset . "email") .email $authorEmail -}}
   {{- else -}}
     {{- $authorName = . -}}
+    {{- warnf "Author format expected as a map with at least name and email." -}}
   {{- end -}}
 {{- end -}}
 {{- $image := $params.featuredimagepreview | default $params.featuredimage -}}
@@ -25,7 +28,7 @@
   <pubDate>
     {{- .Page.Date.Format "Mon, 02 Jan 2006 15:04:05 -0700" -}}
   </pubDate>
-  <author>{{ $authorName }}</author>
+  <author>{{ $authorEmail }} ({{ $authorName}})</author>
   <guid>
     {{- .Page.Permalink -}}
   </guid>
