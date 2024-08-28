@@ -36,7 +36,7 @@
     {{- "<![CDATA[" | safeHTML -}}
     {{- with $image -}}
       <div class="featured-image">
-        {{- dict "Src" . "Title" $.Page.Description "Alt" $.Page.Title "Loading" "eager" "Referrerpolicy" "no-referrer" | partial "plugin/image.html" -}}
+        {{- dict "Src" (. | absURL) "Title" $.Page.Description "Alt" $.Page.Title "Loading" "eager" "Referrerpolicy" "no-referrer" | partial "plugin/image.html" -}}
       </div>
     {{- end -}}
     {{- $content := .Page.Description -}}
