@@ -1,0 +1,38 @@
+{{- /* If Hugo Support AES, refactor with AES. */ -}}
+
+{{- if .Password -}}
+  {{- /* Content Encryption */ -}}
+  {{- $content := .Content -}}
+  {{- $saltLen := strings.RuneCount (trim .Password " ") -}}
+  {{- $saltLen = cond (eq (mod $saltLen 2) 0) (add $saltLen 1) $saltLen -}}
+  {{- $base64EncodeContent := $content | base64Encode -}}
+  {{- $content = printf "%v%v%v"
+    (substr $base64EncodeContent 0 $saltLen)
+    (substr (sha256 .Password) $saltLen)
+    (substr $base64EncodeContent $saltLen)
+  -}}
+
+  {{- /* Generating fixit-encryptor DOM */ -}}
+  {{- $message := .Message | default (T "single.encryptedMessage") -}}
+  {{- $loading := resources.Get "images/loading.svg" | minify -}}
+  {{- $id := dict "Scratch" page.Scratch | partial "function/id.html" -}}
+  <fixit-encryptor>
+    <div class="fixit-decryptor-container">
+      <img class="fixit-decryptor-loading" src="{{ $loading.RelPermalink }}" alt="decryptor loading" width="48" height="48" />
+      <label for="{{ $id }}" title="{{ T `single.password` }}">
+        <input type="password" id="{{ $id }}" class="fixit-decryptor-input" placeholder="🔑 {{ $message }}" />
+      </label>
+      <button class="fixit-decryptor-btn">
+        {{- dict "Class" "fa-solid fa-unlock" | partial "plugin/icon.html" }} {{ T "single.enterBtn" -}}
+      </button>
+      {{- if not .IsPartial -}}
+        <button class="fixit-encryptor-btn">
+          {{- dict "Class" "fa-solid fa-lock" | partial "plugin/icon.html" }} {{ T "single.encryptyAgain" -}}
+        </button>
+      {{- end -}}
+    </div>
+    {{- if .IsPartial }}<div class="decryptor-content"></div>{{ end -}}
+    <cipher-text data-password="{{ xxhash .Password }}">{{ $content }}</cipher-text>
+  </fixit-encryptor>
+{{- end -}}
+
