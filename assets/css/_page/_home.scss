@@ -98,7 +98,7 @@
     .featured-image-preview {
       width: 100%;
       // use the same proportions as the cover image of https://dev.to/
-      aspect-ratio: auto 1000 / 420;
+      aspect-ratio: auto 1000 / 300;
       position: relative;
       margin: 0.6rem auto;
       @include transition(transform 0.4s ease);
@@ -109,7 +109,7 @@
         height: 100%;
         left: 0;
         top: 0;
-        @include object-fit(cover);
+        @include object-fit(scale-down);
       }
 
       &:hover {
