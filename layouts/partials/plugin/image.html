@@ -63,7 +63,8 @@ https://github.com/HEIGE-PCloud/DoIt/blob/main/layouts/partials/plugin/image.htm
 {{- end -}}
 
 {{- $src := $resource.RelPermalink | default .Src -}}
-{{- $alt := .Alt | default $src -}}
+{{- /* $alt := .Alt | default $src */ -}}
+{{- $alt := .Alt -}}
 {{- $caption := .Caption | default $alt -}}
 {{- $height := .Height -}}
 {{- $width := .Width -}}
