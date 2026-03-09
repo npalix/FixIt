@@ -108,7 +108,7 @@
             </span>
           </li>
         {{- end -}}
-        <li class="menu-item theme-switch" title="{{ T "header.switchTheme" }}">
+        <li class="menu-item theme-switch" tabindex=0 title="{{ T "header.switchTheme" }}">
           {{ dict "Class" "fa-solid fa-adjust fa-fw" | partial "plugin/icon.html" }}
         </li>
         {{- if hugo.IsMultilingual -}}
@@ -281,7 +281,7 @@
           {{- end -}}
         {{- end -}}
         <li class="menu-item menu-system">
-          <span class="menu-system-item theme-switch" title="{{ T "header.switchTheme" }}">{{ dict "Class" "fa-solid fa-adjust fa-fw" | partial "plugin/icon.html" }}</span>
+          <span class="menu-system-item theme-switch" tabindex=0 title="{{ T "header.switchTheme" }}">{{ dict "Class" "fa-solid fa-adjust fa-fw" | partial "plugin/icon.html" }}</span>
           {{- if hugo.IsMultilingual -}}
             <span class="menu-system-item language-switch">
               <span role="button" aria-label="{{ T "header.selectLanguage" }}" title="{{ T "header.selectLanguage" }}">

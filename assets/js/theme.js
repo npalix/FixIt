@@ -89,6 +89,16 @@ class FixIt {
 
   initSwitchTheme() {
     this.util.forEach(document.getElementsByClassName('theme-switch'), ($themeSwitch) => {
+      $themeSwitch.addEventListener('keydown', (event) => {
+        if(event.code == "Enter") {
+          document.documentElement.dataset.theme = this.isDark ? 'light' : 'dark';
+          this.isDark = !this.isDark;
+          window.localStorage?.setItem('theme', this.isDark ? 'dark' : 'light');
+          for (let event of this.switchThemeEventSet) {
+            event(this.isDark);
+          }
+        }
+      }, false);
       $themeSwitch.addEventListener('click', () => {
         document.documentElement.dataset.theme = this.isDark ? 'light' : 'dark';
         this.isDark = !this.isDark;

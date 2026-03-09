@@ -206,6 +206,9 @@ header {
   &:hover i {
     @include transform(rotate(45deg));
   }
+  &:focus i {
+    @include transform(rotate(45deg));
+  }
 }
 
 #header-desktop {
